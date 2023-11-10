@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.microservice.name }}
+  labels:
+    app: {{ .Values.microservice.name }}
+spec:
+  replicas: {{ .Values.microservice.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.microservice.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.microservice.name }}
+      annotations:
+        dapr.io/enabled: {{ .Values.microservice.dapr.enabled | quote }}
+        dapr.io/app-id: {{ .Values.microservice.dapr.appId }}
+        dapr.io/app-port: {{ .Values.microservice.dapr.appPort | quote }}
+        dapr.io/enable-api-logging: {{ .Values.microservice.dapr.enableApiLogging | quote }}
+    spec:
+      containers:
+        - name: {{ .Values.microservice.name }}
+          image: {{ .Values.microservice.container.image }}
+          env:
+          {{- range $secrets := .Values.microservice.secrets }}
+          {{- range $data := $secrets.data }}
+            - name: {{ $data.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secrets.name }}
+                  key: {{ $data.name }}
+            {{- end }}
+            {{- end }}
+          {{- if .Values.microservice.ssh.enabled }}
+            - secretRef:
+                name: {{ .Values.microservice.name }}-ssh-keys
+          {{- end}}
+          ports:
+            - containerPort: {{ .Values.microservice.container.port }}
+          imagePullPolicy: IfNotPresent

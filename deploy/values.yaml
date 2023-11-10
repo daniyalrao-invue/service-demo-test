@@ -1,0 +1,9 @@
+externalSecrets: 
+    - name: db-secret
+      data:
+      - key: "DB_PASSWORD"
+        remoteKey: SERVICE-DB-PASSWORD
+      - key: "DB_USER"
+        remoteKey: SERVICE-DB-USERNAME
+      - key: DB_NAME
+        remoteKey: SERVICE-DB-NAME
