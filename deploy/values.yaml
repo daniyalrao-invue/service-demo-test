@@ -1,9 +1,16 @@
-externalSecrets: 
-    - name: db-secret
-      data:
-      - key: "DB_PASSWORD"
-        remoteKey: SERVICE-DB-PASSWORD
-      - key: "DB_USER"
-        remoteKey: SERVICE-DB-USERNAME
-      - key: DB_NAME
-        remoteKey: SERVICE-DB-NAME
+application:
+  externalSecrets: 
+      - name: db-secret
+        data:
+        - key: "DB_PASSWORD"
+          remoteKey: SERVICE-DB-PASSWORD
+        - key: "DB_USER"
+          remoteKey: SERVICE-DB-USERNAME
+        - key: DB_NAME
+          remoteKey: SERVICE-DB-NAME
+  envFrom: 
+     - secretRef: 
+        name: db-secret
+  image:
+    repository: platformcluster.azurecr.io/service-demo-test
+    tag: 1.0.0

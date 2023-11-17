@@ -1,6 +1,6 @@
 dependencies:
 - name: application
   repository: oci://invutehelmcharts.azurecr.io/helm
-  version: 0.1.0
-digest: sha256:95059bc362c111be1eb19afa5b88ff6d223343fcaa18f37aea8d933088a07874
-generated: "2023-11-10T11:05:29.008417-05:00"
+  version: 0.2.0
+digest: sha256:9826421342efd8aa4a4c6ab31830e96fbeb386987350e223e3883537bc25d97c
+generated: "2023-11-13T09:20:55.333877-05:00"
