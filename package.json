@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "config": {
+    "prodcontainerregistry": "platformcluster.azurecr.io"
+  },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build-docker": "docker build -f Dockerfile --tag ${npm_package_config_prodcontainerregistry}/${npm_package_name}:${npm_package_version} .",
+    "push-docker": "docker push ${npm_package_config_prodcontainerregistry}/${npm_package_name}:${npm_package_version}"
   },
   "keywords": [],
   "author": "",
